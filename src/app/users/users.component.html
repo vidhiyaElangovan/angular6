@@ -1,0 +1,49 @@
+
+<h2>My Users</h2>
+<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="showPopup()">Add User</button>
+<table border="1">
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Gender</th>
+    <th>Interst</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.interest}}</td>
+      <td (click)="showPopup(user)">Edit</td>
+      <td (click)="deleteUser(user)">Delete</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="display">
+  <p>Add new user</p>
+  <form (ngSubmit)="addUser(UserDetail)">
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" name="name" [(ngModel)]="UserDetail.name"  />
+    </div>
+     <div class="form-group">
+      <label>Email:</label>
+      <input type="text" name="email" [(ngModel)]="UserDetail.email"  />
+    </div>
+   <div class="form-group">
+      <label>Gender:</label>
+      <input type="radio" name="gender"  [(ngModel)]="UserDetail.gender" value="male">Male
+      <input type="radio" name="gender"  [(ngModel)]="UserDetail.gender" value="female">Female
+    </div>
+    <div>
+        <label>Interest:</label>
+        <select multiple name="interest" [(ngModel)]="UserDetail.interest">
+          <option *ngFor="let val of options" value="{{val.value}}">{{val.label}}</option>
+        </select>
+    </div>
+    <button class="btn btn-primary" type="submit">submit</button>
+    <button class="btn btn-primary" type="reset">Clear</button>
+  </form>
+</div>
